@@ -20,8 +20,15 @@ def process(path_file: str, instance: Queue):
     return sys.stdout.write(str(result_file_dict))
 
 
-def remove(instance):
+def remove(instance: Queue):
     """Aqui irá sua implementação"""
+    if not instance or not len(instance):
+        print("Não há elementos", file=sys.stdout)
+        return 1
+
+    item = instance.dequeue()
+    print(f"Arquivo {item['nome_do_arquivo']} removido com sucesso", file=sys.stdout)
+    return 0
 
 
 def file_metadata(instance, position):
