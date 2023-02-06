@@ -27,7 +27,10 @@ def remove(instance: Queue):
         return 1
 
     item = instance.dequeue()
-    print(f"Arquivo {item['nome_do_arquivo']} removido com sucesso", file=sys.stdout)
+    print(
+        f"Arquivo {item['nome_do_arquivo']} removido com sucesso",
+        file=sys.stdout,
+    )
     return 0
 
 
