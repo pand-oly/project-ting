@@ -2,6 +2,18 @@ from ting_file_management.queue import Queue
 from typing import List
 
 
+def search_exist_word(lines, word, occurrences, with_line):
+    index_line = 1
+    for line in lines:
+        if word.lower() in line.lower():
+            if with_line:
+                occurrences.append({"linha": index_line, "conteudo": line})
+            else:
+                occurrences.append({"linha": index_line})
+
+        index_line += 1
+
+
 def abs_search_word(word: str, instance: Queue, with_line=False):
     size_instance = len(instance)
     result = list()
@@ -10,15 +22,9 @@ def abs_search_word(word: str, instance: Queue, with_line=False):
         file = instance.search(index)
         ocorrencias = list()
 
-        index_line = 1
-        for line in file["linhas_do_arquivo"]:
-            if word.lower() in line.lower():
-                if with_line:
-                    ocorrencias.append({"linha": index_line, "conteudo": line})
-                else:
-                    ocorrencias.append({"linha": index_line})
+        lines = file["linhas_do_arquivo"]
 
-            index_line += 1
+        search_exist_word(lines, word, ocorrencias, with_line)
 
         if ocorrencias:
             result.append(
