@@ -1,5 +1,4 @@
 from ting_file_management.queue import Queue
-from typing import List
 
 
 def search_exist_word(lines, word, occurrences, with_line):
