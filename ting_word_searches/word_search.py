@@ -1,9 +1,8 @@
 from ting_file_management.queue import Queue
-import re
+from typing import List
 
 
-def exists_word(word: str, instance: Queue):
-    """Aqui irá sua implementação"""
+def abs_search_word(word: str, instance: Queue, with_line=False):
     size_instance = len(instance)
     result = list()
 
@@ -13,9 +12,11 @@ def exists_word(word: str, instance: Queue):
 
         index_line = 1
         for line in file["linhas_do_arquivo"]:
-            # if re.search(word, line):
             if word.lower() in line.lower():
-                ocorrencias.append({"linha": index_line})
+                if with_line:
+                    ocorrencias.append({"linha": index_line, "conteudo": line})
+                else:
+                    ocorrencias.append({"linha": index_line})
 
             index_line += 1
 
@@ -31,38 +32,11 @@ def exists_word(word: str, instance: Queue):
     return result
 
 
+def exists_word(word: str, instance: Queue):
+    """Aqui irá sua implementação"""
+    return abs_search_word(word, instance)
+
+
 def search_by_word(word, instance):
     """Aqui irá sua implementação"""
-
-
-def fake_files():
-    return [
-        # {
-        #     "nome_do_arquivo": "arquivo_2.txt",
-        #     "qtd_linhas": 3,
-        #     "linhas_do_arquivo": [...],
-        # },
-        # {
-        #     "nome_do_arquivo": "arquivo_3.txt",
-        #     "qtd_linhas": 4,
-        #     "linhas_do_arquivo": [...],
-        # },
-    ]
-
-
-if __name__ == "__main__":
-    p = Queue()
-    p.enqueue(
-        {
-            "nome_do_arquivo": "arquivo_1.txt",
-            "qtd_linhas": 3,
-            "linhas_do_arquivo": [
-                "test a fraze 1",
-                "para tentar",
-                "fazer o test",
-            ],
-        }
-    )
-
-    r = exists_word("test", p)
-    print(r)
+    return abs_search_word(word, instance, with_line=True)
